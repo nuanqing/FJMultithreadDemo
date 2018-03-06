@@ -75,6 +75,7 @@
     });
     NSLog(@"执行我");
 }
+//同步全局队列
 - (IBAction)TQTestClick:(id)sender {
     dispatch_queue_t globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_sync(globalQueue, ^{
@@ -85,6 +86,7 @@
     });
     NSLog(@"执行我");
 }
+//异步全局队列
 - (IBAction)YQTestClick:(id)sender {
     dispatch_queue_t globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(globalQueue, ^{
@@ -133,6 +135,7 @@
     });
     NSLog(@"执行我");
 }
+//延时执行
 - (IBAction)YSTestClick:(id)sender {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2.0*NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         NSLog(@"延时执行：%@",[NSThread currentThread]);
@@ -159,6 +162,7 @@
     });
     NSLog(@"执行我3");
 }
+//线程挂起
 - (IBAction)GQTestClick:(id)sender {
     
     dispatch_queue_t concurrentQueue = dispatch_queue_create("XHtest.apply", DISPATCH_QUEUE_CONCURRENT);
@@ -175,6 +179,7 @@
     NSLog(@"执行我3");
    
 }
+//定时器
 - (IBAction)TMTtestClick:(id)sender {
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
@@ -197,6 +202,7 @@
     //执行方法，不写不走
     dispatch_resume(timerSource);
 }
+//异步信号量
 - (IBAction)YXHLTestClick:(id)sender {
     //信号量：就是一种可用来控制访问资源的数量的标识，设定了一个信号量，在线程访问之前，加上信号量的处理，则可告知系统按照我们指定的信号量数量来执行多个线程。使用场景：下载的时候，有三个资源，设置最大并发数信号量为2，开始执行两个，一个结束，第三个开始
     //crate的value表示，最多几个资源可访问
@@ -241,6 +247,7 @@
         dispatch_semaphore_signal(semaphore);
     });
 }
+//异步栏栅
 - (IBAction)YLSTestClick:(id)sender {
     //同dispatch_queue_create函数生成的concurrent Dispatch Queue队列一起使用
     //与信号量相似，但会进行插入栏栅块的操作
@@ -267,6 +274,7 @@
         NSLog(@"异步并发4:%@", [NSThread currentThread]);
     });
 }
+//任务取消
 - (IBAction)YXHLCTestClick:(id)sender {
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(2);
     dispatch_queue_t quene = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
